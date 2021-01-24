@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -12,6 +14,17 @@ import java.io.IOException
 class LocalImageRepository(
     private val context: Context
 ) : ImageRepository {
+
+    init {
+        // Check if manifest file is available
+        GlobalScope.launch {
+            if (File(context.filesDir, IMAGE_MANIFEST_FILE).exists()) {
+                getManifest()
+            } else {
+                saveManifest(ImageManifestDto(arrayListOf()))
+            }
+        }
+    }
 
     private val gson = Gson()
 
@@ -75,7 +88,7 @@ class LocalImageRepository(
         context.deleteFile("$IMAGES_DIRECTORY/$id")
 
 
-    suspend fun addToImageManifest(imageDao: ImageDao) {
+    suspend fun addToImageManifest(imageDao: ImageDto) {
         imageManifestDto?.images?.add(
             ImageDto(
                 imageDao.id,

@@ -12,6 +12,8 @@ class OnlineImageRepository: ImageRepository {
 
     override suspend fun getManifest(): ImageManifestDto {
 
+        if (manifest != null) return manifest as ImageManifestDto
+
         val retrofit = Retrofit.Builder()
             .baseUrl("https://picsum.photos/")
             .build()
