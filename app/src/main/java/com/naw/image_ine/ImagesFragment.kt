@@ -25,13 +25,7 @@ class ImagesFragment : Fragment() {
     private val imagesViewModel: ImagesViewModel by viewModels()
 
     // HIER:
-    // Lost adapter and lost of view code (git error)
-    // TODO:
-    // 1. Redo RecyclerView and Adapter                     [ 1 hr ]
-    //      https://www.raywenderlich.com/1560485-android-recyclerview-tutorial-with-kotlin
-    //      https://developer.android.com/guide/topics/ui/layout/recyclerview
-    //      views-widgets-samples
-    //
+
     // 2. Unit test (especially for Repos and UseCase       [ 1 hr ]
 
     // 3. [Bonus] DO not download same image from online    [ 1 hr ]
