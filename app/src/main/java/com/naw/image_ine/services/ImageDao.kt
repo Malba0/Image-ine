@@ -2,10 +2,6 @@ package com.naw.image_ine.services
 
 import com.google.gson.annotations.SerializedName
 
-data class ImagesDao(
-    val images: ArrayList<ImageDao>
-)
-
 data class ImageDao(
 
     @SerializedName("id")

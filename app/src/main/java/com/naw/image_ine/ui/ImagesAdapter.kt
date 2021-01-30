@@ -23,7 +23,10 @@ class ImagesAdapter() : ListAdapter<ImageUio, ImagesAdapter.ImageViewHolder>(Ima
             currentImage = image
 
             authorTv.text = image.author
-            Picasso.get().load(image.downloadUrl).into(imageIv)
+            Picasso.get()
+                .load(image.downloadUrl)
+                .fit()
+                .into(imageIv)
         }
     }
 
