@@ -1,6 +1,7 @@
 package com.naw.image_ine.di
 
 import android.content.Context
+import com.naw.image_ine.MainActivity
 import com.naw.image_ine.ui.ImagesViewModel
 import dagger.Component
 
@@ -8,5 +9,7 @@ import dagger.Component
 interface AppComponent {
 
     fun inject(imagesViewModel: ImagesViewModel)
-    fun inject(context: Context)
+    fun inject(mainActivity: MainActivity)
+
+//    fun context(): Context
 }

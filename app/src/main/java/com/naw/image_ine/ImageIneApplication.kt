@@ -2,6 +2,7 @@ package com.naw.image_ine
 
 import android.app.Application
 import com.naw.image_ine.di.AppComponent
+import com.naw.image_ine.di.AppModule
 import com.naw.image_ine.di.DaggerAppComponent
 import com.naw.image_ine.di.ImageModule
 
@@ -13,7 +14,8 @@ class ImageIneApplication : Application() {
 
         appComponent = DaggerAppComponent
             .builder()
-            .imageModule(ImageModule(this))
+            .appModule(AppModule(this))
+            .imageModule(ImageModule())
             .build()
     }
 }

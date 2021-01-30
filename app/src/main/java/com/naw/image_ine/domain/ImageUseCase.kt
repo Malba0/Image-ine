@@ -1,6 +1,5 @@
 package com.naw.image_ine.domain
 
-import com.naw.image_ine.services.ImageManifestDto
 import com.naw.image_ine.services.OnlineImageRepository
 import com.naw.image_ine.services.LocalImageRepository
 import java.lang.Exception
@@ -12,7 +11,7 @@ import kotlin.random.Random
  * maintain the images and provide the ViewModel
  * consistent data.
  */
-class ImageUseCase @Inject constructor(
+class ImageUseCase(
     private val onlineImageRepository: OnlineImageRepository,
     private val localImageRepository: LocalImageRepository
 ) {

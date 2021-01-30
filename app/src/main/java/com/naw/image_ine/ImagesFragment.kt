@@ -10,9 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.naw.image_ine.ui.ImageUio
 import com.naw.image_ine.ui.ImagesAdapter
 import com.naw.image_ine.ui.ImagesViewModel
+import kotlinx.android.synthetic.main.fragment_images.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -60,6 +63,13 @@ class ImagesFragment : Fragment() {
         recyclerView.adapter = ImagesAdapter()
         imagesViewModel.getImages().observe(viewLifecycleOwner) {
             (recyclerView.adapter as ImagesAdapter).submitList(it as MutableList<ImageUio>)
+        }
+
+        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            imagesViewModel.getNewImage()
+            Snackbar.make(it, "Fetching new image...", Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show()
         }
     }
 }
