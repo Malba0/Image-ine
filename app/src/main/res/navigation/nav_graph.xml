@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/ImagesFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.naw.image_ine.FirstFragment"
+        android:id="@+id/ImagesFragment"
+        android:name="com.naw.image_ine.ImagesFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_images">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_ImagesFragment_to_ErrorFragment"
+            app:destination="@id/ErrorFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.naw.image_ine.SecondFragment"
+        android:id="@+id/ErrorFragment"
+        android:name="com.naw.image_ine.ErrorFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_error">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_ErrorFragment_to_ImagesFragment"
+            app:destination="@id/ImagesFragment" />
     </fragment>
 </navigation>

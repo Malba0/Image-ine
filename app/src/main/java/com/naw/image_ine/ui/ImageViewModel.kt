@@ -3,10 +3,12 @@ package com.naw.image_ine.ui
 import androidx.lifecycle.*
 import com.naw.image_ine.domain.ImageUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ImageViewModel(
-    private val imageUseCase: ImageUseCase
-): ViewModel() {
+class ImageViewModel(): ViewModel() {
+
+    @Inject
+    lateinit var imageUseCase: ImageUseCase
 
     private val images: MutableLiveData<List<ImageUio>> by lazy {
         MutableLiveData<List<ImageUio>>()

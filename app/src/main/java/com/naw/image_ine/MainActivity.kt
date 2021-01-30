@@ -5,6 +5,8 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
+import com.naw.image_ine.ui.ImageViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -12,6 +14,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val imageViewModel: ImageViewModel by viewModels()
+
+        (application as ImageIneApplication).appComponent.inject(this)
+        (application as ImageIneApplication).appComponent.inject(imageViewModel)
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 

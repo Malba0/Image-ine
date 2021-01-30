@@ -2,6 +2,7 @@ package com.naw.image_ine.services
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.GlobalScope
@@ -9,9 +10,10 @@ import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
+import javax.inject.Inject
 
 
-class LocalImageRepository(
+class LocalImageRepository @Inject constructor(
     private val context: Context
 ) : ImageRepository {
 
@@ -36,16 +38,25 @@ class LocalImageRepository(
         imageManifestDto?.let {
             return it
         }
-        imageManifestDto = gson.fromJson(
-            File(context.filesDir, IMAGE_MANIFEST_FILE).readText(),
-            ImageManifestDto::class.java
-        )
+        imageManifestDto = try {
+            gson.fromJson(
+                File(context.filesDir, IMAGE_MANIFEST_FILE).readText(),
+                ImageManifestDto::class.java
+            ) ?: ImageManifestDto(arrayListOf())
+        } catch (ex: Exception) {
+            Log.e("LocalImageRepository", "Empty Local Manifest!", ex)
+            ImageManifestDto(arrayListOf())
+        }
         return imageManifestDto as ImageManifestDto
     }
 
     override suspend fun saveManifest(manifest: ImageManifestDto): Boolean {
         imageManifestDto = manifest
         return try {
+            val file = File(context.filesDir, IMAGE_MANIFEST_FILE)
+            if (!file.exists()) {
+                file.createNewFile()
+            }
             File(context.filesDir, IMAGE_MANIFEST_FILE).writeText(
                 gson.toJson(imageManifestDto)
             )

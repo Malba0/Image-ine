@@ -4,6 +4,7 @@ import com.naw.image_ine.services.ImageManifestDto
 import com.naw.image_ine.services.OnlineImageRepository
 import com.naw.image_ine.services.LocalImageRepository
 import java.lang.Exception
+import javax.inject.Inject
 import kotlin.random.Random
 
 /**
@@ -11,14 +12,10 @@ import kotlin.random.Random
  * maintain the images and provide the ViewModel
  * consistent data.
  */
-class ImageUseCase(
+class ImageUseCase @Inject constructor(
     private val onlineImageRepository: OnlineImageRepository,
     private val localImageRepository: LocalImageRepository
 ) {
-
-    // HIER: Was besig om te besluit of moet die use case the local init doen
-    // is seker beter, maar dit sal werk vir nou,
-    // moet net aangaan
 
     suspend fun getImages(): List<ImageBo> {
         return localImageRepository.getManifest().images.map {
