@@ -30,24 +30,30 @@ class LocalImageRepository @Inject constructor(
 
     private val gson = Gson()
 
-    private var imageManifestDto: ImageManifestDto? = null
+    private var imageManifestDto: ImageManifestDto = ImageManifestDto(arrayListOf())
 
-    override suspend fun hasManifest() = imageManifestDto != null
+    override suspend fun hasManifest() = imageManifestDto.images.isNotEmpty()
 
     override suspend fun getManifest(): ImageManifestDto {
-        imageManifestDto?.let {
-            return it
-        }
+
         imageManifestDto = try {
-            gson.fromJson(
-                File(context.filesDir, IMAGE_MANIFEST_FILE).readText(),
-                ImageManifestDto::class.java
-            ) ?: ImageManifestDto(arrayListOf())
+
+            val file = File(context.filesDir, IMAGE_MANIFEST_FILE)
+            return if (file.exists()) {
+                val text = file.readText()
+                if (text.isNotBlank()) {
+                    gson.fromJson(text, ImageManifestDto::class.java)
+                } else {
+                    ImageManifestDto(arrayListOf())
+                }
+            } else {
+                ImageManifestDto(arrayListOf())
+            }
         } catch (ex: Exception) {
             Log.e("LocalImageRepository", "Empty Local Manifest!", ex)
             ImageManifestDto(arrayListOf())
         }
-        return imageManifestDto as ImageManifestDto
+        return imageManifestDto
     }
 
     override suspend fun saveManifest(manifest: ImageManifestDto): Boolean {

@@ -5,20 +5,18 @@ import com.naw.image_ine.domain.ImageUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ImageViewModel(): ViewModel() {
+class ImagesViewModel() : ViewModel() {
 
     @Inject
     lateinit var imageUseCase: ImageUseCase
 
+    //region LiveDate = Images
     private val images: MutableLiveData<List<ImageUio>> by lazy {
         MutableLiveData<List<ImageUio>>()
     }
 
-    fun getImages() {
-        viewModelScope.launch {
-            updateImages()
-        }
-    }
+    fun getImages(): LiveData<List<ImageUio>> = images
+    //endregion
 
     fun getNewImage() {
         viewModelScope.launch {
