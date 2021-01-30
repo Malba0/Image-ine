@@ -13,11 +13,11 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-class LocalImageRepository @Inject constructor(
+class LocalImageRepository(
     private val context: Context
 ) : ImageRepository {
 
-    init {
+    init {  // TODO: Called multiple times; maybe because of DI?
         // Check if manifest file is available
         GlobalScope.launch {
             if (File(context.filesDir, IMAGE_MANIFEST_FILE).exists()) {

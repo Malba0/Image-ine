@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface ImageApi {
     @GET("/v2/list")
-    suspend fun fetchImages(): ImagesDao
+    suspend fun fetchImages(): Array<ImageDao>
 }

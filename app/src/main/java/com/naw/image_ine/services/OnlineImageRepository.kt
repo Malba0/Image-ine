@@ -1,6 +1,7 @@
 package com.naw.image_ine.services
 
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.random.Random
 
 class OnlineImageRepository: ImageRepository {
@@ -16,9 +17,10 @@ class OnlineImageRepository: ImageRepository {
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://picsum.photos/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(ImageApi::class.java)
-        val onlineImages = service.fetchImages().images
+        val onlineImages = service.fetchImages()
 
         manifest = ImageManifestDto(
             onlineImages.map {imageDao ->
