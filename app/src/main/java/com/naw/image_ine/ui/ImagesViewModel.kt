@@ -3,10 +3,10 @@ package com.naw.image_ine.ui
 import android.app.Application
 import androidx.lifecycle.*
 import com.naw.image_ine.domain.ImageUseCase
+import com.naw.image_ine.domain.ImageIneRandomGenerator
 import com.naw.image_ine.services.LocalImageRepository
 import com.naw.image_ine.services.OnlineImageRepository
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class ImagesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -14,7 +14,8 @@ class ImagesViewModel(application: Application) : AndroidViewModel(application) 
 //    lateinit var imageUseCase: ImageUseCase
     private val imageUseCase = ImageUseCase(
         OnlineImageRepository(),
-        LocalImageRepository(application.applicationContext)
+        LocalImageRepository(application.applicationContext),
+        ImageIneRandomGenerator()
     )
 
     //region LiveDate = Images

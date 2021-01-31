@@ -1,11 +1,8 @@
 package com.naw.image_ine.domain
 
-import com.naw.image_ine.services.ImageDto
-import com.naw.image_ine.services.OnlineImageRepository
-import com.naw.image_ine.services.LocalImageRepository
+import androidx.annotation.VisibleForTesting
+import com.naw.image_ine.services.ImageRepository
 import java.lang.Exception
-import javax.inject.Inject
-import kotlin.random.Random
 
 /**
  * The Use Case contains all logic to
@@ -13,10 +10,12 @@ import kotlin.random.Random
  * consistent data.
  */
 class ImageUseCase(
-    private val onlineImageRepository: OnlineImageRepository,
-    private val localImageRepository: LocalImageRepository
+    private val onlineImageRepository: ImageRepository,
+    private val localImageRepository: ImageRepository,
+    private val randomGenerator: RandomGenerator
 ) {
-    private val localImages: ArrayList<ImageBo> = arrayListOf()
+    @VisibleForTesting
+    var localImages: ArrayList<ImageBo> = arrayListOf()
 
     suspend fun getImages(): List<ImageBo> {
 //        return localImageRepository.getManifest().images.map {
@@ -31,8 +30,8 @@ class ImageUseCase(
 
     suspend fun getNewImage(): ImageBo {
         val onlineManifest = onlineImageRepository.getManifest()
-        val rnd = Random.nextInt(onlineManifest.images.size - 1)
-        val image = onlineImageRepository.getImage(onlineManifest.images[rnd].id)
+        val rnd = randomGenerator.getRandom(onlineManifest.images.size)
+        val image = onlineManifest.images[rnd]
 
         image?.let {
 

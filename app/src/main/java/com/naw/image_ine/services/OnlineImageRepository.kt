@@ -1,12 +1,13 @@
 package com.naw.image_ine.services
 
+import androidx.annotation.VisibleForTesting
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.random.Random
 
 class OnlineImageRepository: ImageRepository {
 
-    private var manifest: ImageManifestDto? = null
+    @VisibleForTesting
+    var manifest: ImageManifestDto? = null
 
 
     override suspend fun hasManifest(): Boolean = manifest != null
@@ -14,7 +15,7 @@ class OnlineImageRepository: ImageRepository {
     override suspend fun getManifest(): ImageManifestDto {
 
         if (manifest != null) return manifest as ImageManifestDto
-
+// TODO: Interface it out so that it can be tested
         val retrofit = Retrofit.Builder()
             .baseUrl("https://picsum.photos/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -34,9 +35,11 @@ class OnlineImageRepository: ImageRepository {
         return manifest as ImageManifestDto
     }
 
-    override suspend fun getImage(id: Int): ImageDto? {
+    override suspend fun getImage(index: Int): ImageDto? {
+
         manifest?.let {
-            return it.images[Random.nextInt(0, it.images.size-1)]
+            if (index >= it.images.size) { return null }
+            return it.images[index]
         } ?: run {
             return null
         }
