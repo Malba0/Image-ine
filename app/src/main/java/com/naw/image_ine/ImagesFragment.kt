@@ -1,21 +1,22 @@
 package com.naw.image_ine
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.naw.image_ine.ui.ImageUio
 import com.naw.image_ine.ui.ImagesAdapter
 import com.naw.image_ine.ui.ImagesViewModel
-import kotlinx.android.synthetic.main.fragment_images.*
+import java.util.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -61,7 +62,38 @@ class ImagesFragment : Fragment() {
                 .show()
         }
 
+        initDnD(recyclerView)
+
         imagesViewModel.load()
+    }
+
+    private fun initDnD(recyclerView: RecyclerView) {
+        ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or
+                    ItemTouchHelper.DOWN or
+                    ItemTouchHelper.START or
+                    ItemTouchHelper.END, 0) {
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val fromPosition = viewHolder.adapterPosition
+                val toPosition = target.adapterPosition
+
+                val adapter = (recyclerView.adapter as ImagesAdapter)
+                val list = adapter.currentList
+                val mutList = list.toMutableList()
+                Collections.swap(mutList, fromPosition, toPosition)
+                adapter.submitList(mutList)
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                TODO("Not yet implemented")
+            }
+        }).attachToRecyclerView(recyclerView)
     }
 
     override fun onPause() {
