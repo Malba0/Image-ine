@@ -37,6 +37,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_cloud_download_24"
-        android:contentDescription="Get random image" />
+        android:contentDescription="@string/get_random_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

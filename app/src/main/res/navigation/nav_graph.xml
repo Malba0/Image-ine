@@ -10,19 +10,5 @@
         android:name="com.naw.image_ine.ImagesFragment"
         android:label="@string/images_fragment_label"
         tools:layout="@layout/fragment_images">
-
-        <action
-            android:id="@+id/action_ImagesFragment_to_ErrorFragment"
-            app:destination="@id/ErrorFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/ErrorFragment"
-        android:name="com.naw.image_ine.ErrorFragment"
-        android:label="@string/error_fragment_label"
-        tools:layout="@layout/fragment_error">
-
-        <action
-            android:id="@+id/action_ErrorFragment_to_ImagesFragment"
-            app:destination="@id/ImagesFragment" />
     </fragment>
 </navigation>
