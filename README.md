@@ -11,6 +11,7 @@ Models are not passed up the dependency chain.
 View <(Uio) ViewModel <(Bo) UseCase <(Dto) Repositories <(Dao) ServiceApi
 
 Some DI by dagger
+Retrofit calls APIs and Picasso loads images.
 
 # Icon
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik
