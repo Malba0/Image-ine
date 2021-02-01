@@ -116,18 +116,9 @@ class ImageUseCaseTest {
     }
 
     companion object {
-        private const val ID = 1
-        private const val AUTHOR = "author"
-        private const val DONWLOAD_URL = "local"
-
-        private val TEST_IMAGE = ImageBo(ID, AUTHOR, DONWLOAD_URL)
-        private val TEST_LIST = listOf(TEST_IMAGE)
 
         private val LOCAL_DTO = ImageDto(2, "author", "local")
         private val ONLINE_DTO = ImageDto(1, "author", "online")
-
-        private val TEST_LIST_ONLINE =
-            ImageManifestDto(arrayListOf(ImageDto(ID, AUTHOR, DONWLOAD_URL)))
     }
 
     internal class MockOnlineImageRepo(imageDto: ImageDto?): ImageRepository {
