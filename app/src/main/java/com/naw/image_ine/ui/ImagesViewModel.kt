@@ -26,10 +26,29 @@ class ImagesViewModel(application: Application) : AndroidViewModel(application) 
     fun getImages(): LiveData<List<ImageUio>> = images
     //endregion
 
+    override fun onCleared() {
+        viewModelScope.launch {
+            imageUseCase.saveLocalImages()
+        }
+        super.onCleared()
+    }
+
+    fun load() {
+        viewModelScope.launch {
+            updateImages()
+        }
+    }
+
     fun getNewImage() {
         viewModelScope.launch {
             imageUseCase.getNewImage()
             updateImages()
+        }
+    }
+
+    fun saveImages() {
+        viewModelScope.launch {
+            imageUseCase.saveLocalImages()
         }
     }
 

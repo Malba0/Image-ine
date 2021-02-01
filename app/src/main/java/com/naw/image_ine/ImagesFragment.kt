@@ -25,13 +25,8 @@ class ImagesFragment : Fragment() {
     private val imagesViewModel: ImagesViewModel by viewModels()
 
     // HIER:
-
-    // 2. Unit test (especially for Repos and UseCase       [ 1 hr ]
-
     // 3. [Bonus] DO not download same image from online    [ 1 hr ]
     // 4. Drag Order images                                 [ 2 hr ]
-
-
     // 5. Swipe remove image                                [ 1 hr ]
     // 6. [Bonus] Deploy pipeline                           [ 2 hr ]
     // 7. Publish                                           [ 1 hr ]
@@ -65,5 +60,12 @@ class ImagesFragment : Fragment() {
                 .setAction("Action", null)
                 .show()
         }
+
+        imagesViewModel.load()
+    }
+
+    override fun onPause() {
+        imagesViewModel.saveImages()
+        super.onPause()
     }
 }

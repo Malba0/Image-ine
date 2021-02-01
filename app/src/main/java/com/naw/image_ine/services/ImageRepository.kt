@@ -6,7 +6,7 @@ interface ImageRepository {
     suspend fun getImage(id: Int): ImageDto?
 
     /** Optional */
-    suspend fun saveImage(image: ImageDto): Boolean = false
+    suspend fun saveImage(image: ImageDto, imageName: String): Boolean = false
     /** Optional */
     suspend fun saveManifest(manifest: ImageManifestDto): Boolean = false
 }

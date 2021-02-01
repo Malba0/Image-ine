@@ -5,28 +5,29 @@ import android.graphics.Bitmap
 import android.util.Log
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
-import javax.inject.Inject
 
 
 class LocalImageRepository(
     private val context: Context
 ) : ImageRepository {
 
-    init {  // TODO: Called multiple times; maybe because of DI?
-        // Check if manifest file is available
-        GlobalScope.launch {
-            if (File(context.filesDir, IMAGE_MANIFEST_FILE).exists()) {
-                getManifest()
-            } else {
-                saveManifest(ImageManifestDto(arrayListOf()))
-            }
-        }
-    }
+//    init {  // TODO: Called multiple times; maybe because of DI?
+//        // Check if manifest file is available
+//        GlobalScope.launch {
+//            if (File(context.filesDir, IMAGE_MANIFEST_FILE).exists()) {
+//                getManifest()
+//            } else {
+//                saveManifest(ImageManifestDto(arrayListOf()))
+//            }
+//        }
+//    }
 
     private val gson = Gson()
 
@@ -56,9 +57,10 @@ class LocalImageRepository(
         return imageManifestDto
     }
 
-    override suspend fun saveManifest(manifest: ImageManifestDto): Boolean {
+    override suspend fun saveManifest(manifest: ImageManifestDto): Boolean = withContext(Dispatchers.IO) {
         imageManifestDto = manifest
-        return try {
+        return@withContext try {
+            Log.d("LocalImageRepo", "Saving file=${context.filesDir}/$IMAGE_MANIFEST_FILE")
             val file = File(context.filesDir, IMAGE_MANIFEST_FILE)
             if (!file.exists()) {
                 file.createNewFile()
@@ -72,23 +74,29 @@ class LocalImageRepository(
         }
     }
 
-    override suspend fun saveImage(image: ImageDto): Boolean {
+
+    // TODO: remove
+    override suspend fun saveImage(
+        image: ImageDto,
+        imageName: String
+    ): Boolean = withContext(Dispatchers.IO) {
         try {
-            // Save to local storage
-            val fileContents = Picasso.get().load(image.downloadUrl).get()
-            val stream = ByteArrayOutputStream()
-            fileContents.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-            val byteArray: ByteArray = stream.toByteArray()
-            fileContents.recycle()
-            context.openFileOutput(
-                "$IMAGES_DIRECTORY/${image.id}",
-                WRITE_MODE
-            ).use {
-                it.write(byteArray)
-            }
-            return true
+                val fileContents = Picasso.get().load(image.downloadUrl).get()
+                val stream = ByteArrayOutputStream()
+                fileContents.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                val byteArray: ByteArray = stream.toByteArray()
+                fileContents.recycle()
+                context.openFileOutput(
+                    "${context.filesDir}$imageName",
+                    WRITE_MODE
+                ).use {
+                    it.write(byteArray)
+                }
+                return@withContext true
+
         } catch (ex: Exception) {
-            return false
+            Log.e("LocalImageRepo", ex.localizedMessage, ex)
+            return@withContext false
         }
         // TODO: Look at cache control for later options
     }
