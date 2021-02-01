@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.naw.image_ine.R
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class ImagesAdapter() : ListAdapter<ImageUio, ImagesAdapter.ImageViewHolder>(ImageDifCallback) {
 
@@ -39,6 +40,20 @@ class ImagesAdapter() : ListAdapter<ImageUio, ImagesAdapter.ImageViewHolder>(Ima
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val image = getItem(position)
         holder.bind(image)
+    }
+
+    fun swapItems(fromPosition: Int, toPosition: Int) {
+        val list = currentList
+        val mutList = list.toMutableList()
+        Collections.swap(mutList, fromPosition, toPosition)
+        submitList(mutList)
+    }
+
+    fun removeItem(position: Int) {
+        val list = currentList
+        val mutList = list.toMutableList()
+        mutList.removeAt(position)
+        submitList(mutList)
     }
 
 }
