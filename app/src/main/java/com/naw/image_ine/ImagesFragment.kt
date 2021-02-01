@@ -35,10 +35,6 @@ class ImagesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-            findNavController().navigate(R.id.action_ImagesFragment_to_ErrorFragment)
-        }
-
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.adapter = ImagesAdapter()
         imagesViewModel.getImages().observe(viewLifecycleOwner) {

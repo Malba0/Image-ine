@@ -36,7 +36,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_email"
+        app:srcCompat="@drawable/ic_baseline_cloud_download_24"
         android:contentDescription="Get random image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
