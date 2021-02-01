@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/ImagesFragment"
         android:name="com.naw.image_ine.ImagesFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/images_fragment_label"
         tools:layout="@layout/fragment_images">
 
         <action
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/ErrorFragment"
         android:name="com.naw.image_ine.ErrorFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/error_fragment_label"
         tools:layout="@layout/fragment_error">
 
         <action

@@ -78,8 +78,4 @@ class ImageUseCase(
 
     private fun dto2Bo(dto: ImageDto) = ImageBo(dto.id, dto.author, dto.downloadUrl)
     private fun bo2Dto(bo: ImageBo) = ImageDto(bo.id, bo.author, bo.downloadUrl)
-
-    companion object {
-        const val IMAGES_DIRECTORY = "images"
-    }
 }

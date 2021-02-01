@@ -1,5 +1,6 @@
 package com.naw.image_ine
 
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.rules.TestWatcher
@@ -12,6 +13,13 @@ import kotlinx.coroutines.test.setMain
 class CoroutineTestRule(
     private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 ) : TestWatcher() {
+
+//    val testDispatcherProvider = object : DispatcherProvider {
+//        override fun default(): CoroutineDispatcher = testDispatcher
+//        override fun io(): CoroutineDispatcher = testDispatcher
+//        override fun main(): CoroutineDispatcher = testDispatcher
+//        override fun unconfined(): CoroutineDispatcher = testDispatcher
+//    }
 
     override fun starting(description: Description?) {
         super.starting(description)

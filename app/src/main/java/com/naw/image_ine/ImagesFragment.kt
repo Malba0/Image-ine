@@ -56,7 +56,7 @@ class ImagesFragment : Fragment() {
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             imagesViewModel.getNewImage()
-            Snackbar.make(it, "Fetching new image...", Snackbar.LENGTH_LONG)
+            Snackbar.make(it, getString(R.string.fetch), Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show()
         }

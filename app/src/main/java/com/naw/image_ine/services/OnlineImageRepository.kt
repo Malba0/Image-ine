@@ -9,9 +9,6 @@ class OnlineImageRepository: ImageRepository {
     @VisibleForTesting
     var manifest: ImageManifestDto? = null
 
-
-    override suspend fun hasManifest(): Boolean = manifest != null
-
     override suspend fun getManifest(): ImageManifestDto {
 
         if (manifest != null) return manifest as ImageManifestDto
@@ -33,15 +30,5 @@ class OnlineImageRepository: ImageRepository {
             } as ArrayList<ImageDto>
         )
         return manifest as ImageManifestDto
-    }
-
-    override suspend fun getImage(index: Int): ImageDto? {
-
-        manifest?.let {
-            if (index >= it.images.size) { return null }
-            return it.images[index]
-        } ?: run {
-            return null
-        }
     }
 }
