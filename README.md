@@ -12,6 +12,10 @@ View <(Uio) ViewModel <(Bo) UseCase <(Dto) Repositories <(Dao) ServiceApi
 
 Some DI by dagger
 
+# Icon
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik
+</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
 # License
 Copyright (C) 2021  NAW
 
